@@ -87,7 +87,8 @@ namespace pystring_function
 		}
 		if (sep.size() == 0)
 		{
-			return split_whitespace(vec_output, str, maxsplit);
+			split_whitespace(vec_output, str, maxsplit);
+			return;
 		}
 		size_t i = 0;
 		size_t n_start_pos = 0;

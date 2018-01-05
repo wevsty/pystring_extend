@@ -157,7 +157,8 @@ namespace pystring_utf32_function
 		}
 		if (sep.size() == 0)
 		{
-			return rsplit_whitespace(vec_output, str, maxsplit);
+			rsplit_whitespace(vec_output, str, maxsplit);
+			return;
 		}
 		long_max_t i;
 		long_max_t n_start_pos;
