@@ -1,5 +1,6 @@
 # pystring_extend
  A C++ class compatible std::string and Python string style.
+ 
  一个兼容std::string和Python String风格的C++字符串库。
  
 # Compiler compatibility
@@ -10,12 +11,20 @@
 | Others                      | unknow        |
 
 Note : Compilation needs to support C++11 standards.
+
 注：编译需要支持C++11标准。
 
 # 使用方法
- 项目中提供了2类字符串处理函数（或者类），一类为不区分编码的字符串函数，另一类为强制使用utf32编码的字符串函数，在项目中可以自由的使用。使用方法如下：
+ 项目中提供了2类字符串处理函数（或者类），一类为不区分编码的字符串函数，另一类为强制使用utf32编码的字符串函数，可以在项目中可以自由的使用。
+ 
+ 使用方法如下：
+ 
  1. 直接调用函数。
- 如果我们不需要考虑编码的问题，希望用字节的方式来处理数据，可以直接使用pystring_function命名空间下的处理函数。函数命名与Python中相同，第一个参数永远为被处理的字符串，后续参数与Python相同。函数名和参数请参考Python官方文档或者其他资料。
+ 如果我们不需要考虑编码的问题，希望用字节的方式来处理数据，可以直接使用pystring_function命名空间下的处理函数。
+ 
+ 函数命名与Python中相同，第一个参数永远为被处理的字符串，后续参数与Python相同。
+ 
+ 函数名和参数请参考Python官方文档或者其他资料。
  
  ```cpp
     #include "pystring_function.h"
@@ -30,7 +39,9 @@ Note : Compilation needs to support C++11 standards.
     return 0;
     }
  ```
+ 
  如给我们希望使用UTF32编码来处理字符串，则可以使用pystring_utf32_function命名空间下的函数来处理。
+ 
  例如：
   ```cpp
     #include "pystring_utf32_function.h"
@@ -46,8 +57,13 @@ Note : Compilation needs to support C++11 standards.
     }
  ```
  2. 使用封装好的类
- 直接调用函数终归还是有很多的不便，为了尽可能保持兼容性和Python风格，这里也封装了字符串类。以字节方式处理的类为pystring_ext，以UTF32编码来处理的类为pystring_utf32_class。pystring_ext与std::string兼容，可以使用std::string的所有类成员函数。pystring_utf32_class与std::u32string兼容。可以根据自己的习惯用typedef来更改为自己喜欢的名字。
+ 
+ 直接调用函数终归还是有很多的不便，为了尽可能保持兼容性和Python风格，这里也封装了字符串类。
+ 
+ 以字节方式处理的类为pystring_ext，以UTF32编码来处理的类为pystring_utf32_class。pystring_ext与std::string兼容，可以使用std::string的所有类成员函数。pystring_utf32_class与std::u32string兼容。可以根据自己的习惯用typedef来更改为自己喜欢的名字。
+ 
  此外类中还扩展了py_开头的函数，这些函数尽可能的与Python风格的字符串兼容。to_开头和from_的类型转换函数。
+ 
  举例：
    ```cpp
     #include "pystring_class.h"
