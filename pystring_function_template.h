@@ -1,4 +1,4 @@
-#if defined(_MSC_VER)
+ï»¿#if defined(_MSC_VER)
 #pragma once
 #endif
 #ifndef __PYTHON_STRING_FUNCTION_TEMPLATE_H__
@@ -11,7 +11,7 @@
 
 namespace pystring_function
 {
-	//×ª»»ÀàĞÍ
+	//è½¬æ¢ç±»å‹
 	//stream_convert_type<string>(10)
 	//stream_convert_type<int>(string)
 	template<typename out_type, typename in_value>
@@ -19,11 +19,11 @@ namespace pystring_function
 	{
 		std::stringstream stream;
 		stream << t;
-		//ÏòÁ÷ÖĞ´«Öµ
+		//å‘æµä¸­ä¼ å€¼
 		out_type result;
-		//ÕâÀï´æ´¢×ª»»½á¹û
+		//è¿™é‡Œå­˜å‚¨è½¬æ¢ç»“æœ
 		stream >> result;
-		//Ïòvec_out_resultÖĞĞ´ÈëÖµ
+		//å‘vec_out_resultä¸­å†™å…¥å€¼
 		return result;
 	}
 
@@ -38,18 +38,18 @@ namespace pystring_function
 		size_t n_str_len = str.size();
 		for (i = n_start_pos = 0; i < n_str_len; )
 		{
-			//ÕÒµ½µÚÒ»¸ö·Ç¿Õ×Ö·û
+			//æ‰¾åˆ°ç¬¬ä¸€ä¸ªéç©ºå­—ç¬¦
 			while (i < n_str_len && std::isspace(str[i]))
 			{
 				i++;
 			}
 			n_start_pos = i;
-			//Ñ°ÕÒÏÂÒ»¸ö¿Õ×Ö·û
+			//å¯»æ‰¾ä¸‹ä¸€ä¸ªç©ºå­—ç¬¦
 			while (i < n_str_len && !std::isspace(str[i]))
 			{
 				i++;
 			}
-			//Èç¹ûÕÒµ½ÁË¿É·Ö¸îµÄ×Ö·û
+			//å¦‚æœæ‰¾åˆ°äº†å¯åˆ†å‰²çš„å­—ç¬¦
 			if (n_start_pos < i)
 			{
 				if (maxsplit-- <= 0)
@@ -57,7 +57,7 @@ namespace pystring_function
 					break;
 				}
 				vec_output.push_back(str.substr(n_start_pos, i - n_start_pos));
-				//ĞÔÄÜÓÅ»¯
+				//æ€§èƒ½ä¼˜åŒ–
 				while (i < n_str_len && ::isspace(str[i]))
 				{
 					i++;
@@ -72,7 +72,7 @@ namespace pystring_function
 		return;
 	}
 
-	//×Ö·û´®·Ö¸î
+	//å­—ç¬¦ä¸²åˆ†å‰²
 	template <typename TEMPLATE_VECTOR_STRING>
 	void split(
 		TEMPLATE_VECTOR_STRING &vec_output,
@@ -203,7 +203,7 @@ namespace pystring_function
 		//reverse_strings(vec_out_result);
 	}
 
-	//½«ĞòÁĞÖĞµÄÔªËØÒÔÖ¸¶¨µÄ×Ö·ûÁ¬½ÓÉú³ÉÒ»¸öĞÂµÄ×Ö·û´®¡£
+	//å°†åºåˆ—ä¸­çš„å…ƒç´ ä»¥æŒ‡å®šçš„å­—ç¬¦è¿æ¥ç”Ÿæˆä¸€ä¸ªæ–°çš„å­—ç¬¦ä¸²ã€‚
 	template <typename TEMPLATE_VECTOR_STRING, typename TEMPLATE_STRING>
 	void join(const std::string &str,
 		TEMPLATE_VECTOR_STRING &seq,
@@ -226,7 +226,7 @@ namespace pystring_function
 		return;
 	}
 
-	//·µ»ØÒ»¸ö3ÔªµÄÔª×é£¬µÚÒ»¸öÎª·Ö¸ô·û×ó±ßµÄ×Ó´®£¬µÚ¶ş¸öÎª·Ö¸ô·û±¾Éí£¬µÚÈı¸öÎª·Ö¸ô·ûÓÒ±ßµÄ×Ó´®¡£
+	//è¿”å›ä¸€ä¸ª3å…ƒçš„å…ƒç»„ï¼Œç¬¬ä¸€ä¸ªä¸ºåˆ†éš”ç¬¦å·¦è¾¹çš„å­ä¸²ï¼Œç¬¬äºŒä¸ªä¸ºåˆ†éš”ç¬¦æœ¬èº«ï¼Œç¬¬ä¸‰ä¸ªä¸ºåˆ†éš”ç¬¦å³è¾¹çš„å­ä¸²ã€‚
 	//"https://baidu.com" -> ('https', '://', 'baidu.com')
 	template <typename TEMPLATE_VECTOR_STRING>
 	void partition(
@@ -252,8 +252,8 @@ namespace pystring_function
 		return;
 	}
 
-	//ÀàËÆÓÚpartition()º¯Êı,²»¹ıÊÇ´ÓÓÒ±ß¿ªÊ¼²éÕÒ.
-	//·µ»ØÒ»¸ö3ÔªµÄÔª×é£¬µÚÒ»¸öÎª·Ö¸ô·û×ó±ßµÄ×Ó´®£¬µÚ¶ş¸öÎª·Ö¸ô·û±¾Éí£¬µÚÈı¸öÎª·Ö¸ô·ûÓÒ±ßµÄ×Ó´®¡£
+	//ç±»ä¼¼äºpartition()å‡½æ•°,ä¸è¿‡æ˜¯ä»å³è¾¹å¼€å§‹æŸ¥æ‰¾.
+	//è¿”å›ä¸€ä¸ª3å…ƒçš„å…ƒç»„ï¼Œç¬¬ä¸€ä¸ªä¸ºåˆ†éš”ç¬¦å·¦è¾¹çš„å­ä¸²ï¼Œç¬¬äºŒä¸ªä¸ºåˆ†éš”ç¬¦æœ¬èº«ï¼Œç¬¬ä¸‰ä¸ªä¸ºåˆ†éš”ç¬¦å³è¾¹çš„å­ä¸²ã€‚
 	//"https://baidu.com" -> ('https', '://', 'baidu.com')
 	template <typename TEMPLATE_VECTOR_STRING>
 	void rpartition(
@@ -279,7 +279,7 @@ namespace pystring_function
 		return;
 	}
 
-	//×Ö·û´®°´ĞĞ·Ö¸î
+	//å­—ç¬¦ä¸²æŒ‰è¡Œåˆ†å‰²
 	template <typename TEMPLATE_VECTOR_STRING>
 	void splitlines(
 		TEMPLATE_VECTOR_STRING &vec_out_split_str,
@@ -336,7 +336,7 @@ namespace pystring_function
 		return;
 	}
 
-	//python·ç¸ñµÄ×Ö·û´®¸ñÊ½»¯
+	//pythoné£æ ¼çš„å­—ç¬¦ä¸²æ ¼å¼åŒ–
 	// format("{} + {} = {}",TEMPLATE_VECTOR_STRING{"1","2","3"})
 	template <typename TEMPLATE_VECTOR_STRING>
 	void format(std::string format_str,
