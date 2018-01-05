@@ -30,12 +30,6 @@ namespace pystring_function
 	//调整开始和结束下标，主要用于负数时
 	inline void adjust_indices(long_max_t &start, long_max_t &end, long_max_t &len);
 
-	//转换类型
-	//convert<string>(10)
-	//convert<int>(string)
-	template<typename out_type, typename in_value>
-	out_type convert_type(const in_value &t);
-
 	//切片方法
 	std::string slice(const std::string &str, long_max_t start = 0,
 		long_max_t end = MAX_SIGNED_LONG64_NUM);

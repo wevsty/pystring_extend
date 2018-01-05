@@ -1,10 +1,4 @@
-﻿#if defined(_MSC_VER)
-#pragma once
-#endif
-#ifndef __PYTHON_STRING_UFT32_HPP__
-#define __PYTHON_STRING_UFT32_HPP__
-#include "pystring_utf32_function.h"
-#include <algorithm>
+﻿#include <algorithm>
 #include <cctype>
 #include <cstring>
 #include <iostream>
@@ -16,8 +10,10 @@
 #include <stdexcept>//std except
 #include "data_conv.h"
 #include "py_string_public_def.h"
+#include "pystring_utf32_function.h"
+
 //isdecimal() encode decode
-namespace pystring_utf32
+namespace pystring_utf32_function
 {
 	//安全转换unsigned到signed
 	inline long_max_t safe_to_sigend_cast(size_t n_input)
@@ -993,7 +989,7 @@ namespace pystring_utf32
 	std::u32string lower(const std::u32string &str)
 	{
 		std::u32string str_ret(str);
-		std::transform(str_ret.begin(), str_ret.end(), str_ret.begin(), pystring_utf32::ch_tolower);
+		std::transform(str_ret.begin(), str_ret.end(), str_ret.begin(), pystring_utf32_function::ch_tolower);
 		return str_ret;
 	}
 
@@ -1001,7 +997,7 @@ namespace pystring_utf32
 	std::u32string upper(const std::u32string &str)
 	{
 		std::u32string str_ret(str);
-		std::transform(str_ret.begin(), str_ret.end(), str_ret.begin(), pystring_utf32::ch_toupper);
+		std::transform(str_ret.begin(), str_ret.end(), str_ret.begin(), pystring_utf32_function::ch_toupper);
 		return str_ret;
 	}
 
@@ -1212,5 +1208,3 @@ namespace pystring_utf32
 	}
 }
 
-
-#endif // !__PYTHON_STRING_UFT32_HPP__

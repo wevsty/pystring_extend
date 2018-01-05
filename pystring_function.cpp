@@ -1,5 +1,4 @@
-﻿#include "pystring_function.h"
-#include <algorithm>
+﻿#include <algorithm>
 #include <cctype>
 #include <cstring>
 #include <iostream>
@@ -11,7 +10,7 @@
 #include <stdexcept>//std except
 #include "data_conv.h"
 #include "py_string_public_def.h"
-
+#include "pystring_function.h"
 
 //isdecimal() encode decode
 namespace pystring_function
@@ -67,22 +66,6 @@ namespace pystring_function
 				start = 0;
 			}
 		}
-	}
-
-	//转换类型
-	//convert<string>(10)
-	//convert<int>(string)
-	template<typename out_type, typename in_value>
-	out_type convert_type(const in_value &t)
-	{
-		std::stringstream stream;
-		stream << t;
-		//向流中传值
-		out_type result;
-		//这里存储转换结果
-		stream >> result;
-		//向result中写入值
-		return result;
 	}
 
 	//切片方法

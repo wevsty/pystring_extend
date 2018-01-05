@@ -19,7 +19,7 @@
 
 
 //isdecimal() encode decode
-namespace pystring_utf32
+namespace pystring_utf32_function
 {
 	//安全转换unsigned到signed
 	inline long_max_t safe_to_sigend_cast(size_t n_input);
@@ -106,7 +106,7 @@ namespace pystring_utf32
 
 	//字符串大小写翻转
 	std::u32string swapcase(const std::u32string &old_str);
-    
+
 	//翻转字符串
 	std::u32string string_reverse(const std::u32string &old_str);
 
@@ -169,13 +169,13 @@ namespace pystring_utf32
 	//"a1" -> false
 	//"11" -> false
 	bool isupper(const std::u32string &str);
-    
+
 	//定义ch_tolow函数为了兼容编译器
 	inline int ch_tolower(int ch);
 
 	//定义ch_toupper函数为了兼容编译器
 	inline int ch_toupper(int ch);
-	
+
 	//转换所有字符为小写
 	std::u32string lower(const std::u32string &str);
 
@@ -214,7 +214,7 @@ namespace pystring_utf32
 	std::u32string between_start_and_end_string(const std::u32string &str_data,
 		const std::u32string &str_start,
 		const std::u32string &str_end = U"");
-        
+
 	//python风格的字符串格式化
 	// format("{} + {} = {}",std::vector<std::u32string>{"1","2","3"})
 	std::u32string format(std::u32string format_str, std::vector<std::u32string> vec_format_list);

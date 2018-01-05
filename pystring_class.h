@@ -215,6 +215,11 @@ public:
 	//python风格的字符串格式化
 	// format(U"{} + {} = {}",std::vector<std::u32string>{U"1",U"2",U"3"})
 	pystring_utf32_class py_format(const pystring_utf32_class format_str,
+		std::vector<std::u32string> vec_format_list) const;
+
+	//python风格的字符串格式化
+	// format(U"{} + {} = {}",std::vector<std::u32string>{U"1",U"2",U"3"})
+	pystring_utf32_class py_format(const pystring_utf32_class format_str,
 		std::vector<pystring_utf32_class> vec_format_list) const;
 
 	//取两个字符串之间的字符串
@@ -250,14 +255,6 @@ public:
 	//to UTF-16
 	std::u16string to_std_u16string() const;
 
-private:
-
-	//std::vector<std::string>转换为std::vector<pystring_ext>
-	std::vector<pystring_utf32_class> to_vector_utfpystring(std::vector<std::u32string>
-		&vec_str) const;
-	//std::vector<pystring_ext>转换为std::vector<std::string>
-	std::vector<std::u32string> to_vector_std_u32string(std::vector<pystring_utf32_class>
-		&vec_utfstr) const;
 };
 
 class pystring_ext : public std_string_proxy
@@ -461,6 +458,11 @@ public:
 	pystring_ext py_format(std::string format_str,
 		std::vector<std::string> vec_format_list) const;
 
+	//python风格的字符串格式化
+	// format(U"{} + {} = {}",std::vector<pystring_ext>{U"1",U"2",U"3"})
+	pystring_ext py_format(std::string format_str,
+		std::vector<pystring_ext> vec_format_list) const;
+
 	//取两个字符串之间的字符串
 	pystring_ext py_between_start_and_end_string(const std::string &str_start,
 		const std::string &str_end = "") const;
@@ -499,12 +501,5 @@ public:
 	//to UTF-32
 	std::u32string to_std_u32string();
 
-private:
-	//std::vector<std::string>转换为std::vector<pystring_ext>
-	std::vector<pystring_ext> to_vector_pystring_ext(std::vector<std::string>
-		&vec_str) const;
-	//std::vector<pystring_ext>转换为std::vector<std::string>
-	std::vector<std::string> to_vector_std_string(std::vector<pystring_ext>
-		&vec_pystr) const;
 };
 #endif // !__PYTHON_STRING_CLASS_CPP_H__

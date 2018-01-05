@@ -1,7 +1,9 @@
 ﻿
 #include "pystring_class.h"
 #include "pystring_function.h"
+#include "pystring_function_template.h"
 #include "pystring_utf32_function.h"
+#include "pystring_utf32_function_template.h"
 #include <stdarg.h> // to use va_args ( format )
 //#include <algorithm> // transform
 
@@ -114,14 +116,14 @@ pystring_utf32_class & pystring_utf32_class::operator= (const pystring_utf32_cla
 pystring_utf32_class pystring_utf32_class::py_slice(long_max_t start,
 	long_max_t end) const
 {
-	return pystring_utf32::slice(var_container, start, end);
+	return pystring_utf32_function::slice(var_container, start, end);
 }
 
 //返回一个首字母大写其他小写的字符串
 //"this IS string" -> "This is string"
 pystring_utf32_class pystring_utf32_class::py_capitalize() const
 {
-	return pystring_utf32::capitalize(var_container);
+	return pystring_utf32_function::capitalize(var_container);
 }
 
 //返回一个原字符串居中的新字符串,并使用fillchar(默认空格)填充至长度 width 的新字符串
@@ -129,7 +131,7 @@ pystring_utf32_class pystring_utf32_class::py_capitalize() const
 pystring_utf32_class pystring_utf32_class::py_center(std::u32string::size_type width,
 	const char32_t fillchar) const
 {
-	return pystring_utf32::center(var_container, width, fillchar);
+	return pystring_utf32_function::center(var_container, width, fillchar);
 }
 
 //返回字符串中指定字符或者字符串的数目。
@@ -137,27 +139,27 @@ pystring_utf32_class pystring_utf32_class::py_center(std::u32string::size_type w
 long_max_t pystring_utf32_class::py_count(const pystring_utf32_class &substr,
 	long_max_t start, long_max_t end) const
 {
-	return pystring_utf32::count(var_container, substr.var_container, start, end);
+	return pystring_utf32_function::count(var_container, substr.var_container, start, end);
 }
 
 //判断字符串开头是否等于suffix
 bool pystring_utf32_class::py_startswith(const pystring_utf32_class &suffix,
 	long_max_t start, long_max_t end) const
 {
-	return pystring_utf32::startswith(var_container, suffix.var_container, start, end);
+	return pystring_utf32_function::startswith(var_container, suffix.var_container, start, end);
 }
 
 //判断字符串结尾是否等于suffix
 bool pystring_utf32_class::py_endswith(const pystring_utf32_class &suffix,
 	long_max_t start, long_max_t end) const
 {
-	return pystring_utf32::endswith(var_container, suffix.var_container, start, end);
+	return pystring_utf32_function::endswith(var_container, suffix.var_container, start, end);
 }
 
 //扩展/t为空格（默认为8个）并保持行末尾对齐
 pystring_utf32_class pystring_utf32_class::py_expandtabs(int tabsize) const
 {
-	return pystring_utf32::expandtabs(var_container, tabsize);
+	return pystring_utf32_function::expandtabs(var_container, tabsize);
 }
 
 //find() 方法检测字符串中是否包含子字符串 substr
@@ -166,7 +168,7 @@ pystring_utf32_class pystring_utf32_class::py_expandtabs(int tabsize) const
 long_max_t pystring_utf32_class::py_find(const pystring_utf32_class &substr,
 	long_max_t start, long_max_t end) const
 {
-	return pystring_utf32::find(var_container, substr.var_container, start, end);
+	return pystring_utf32_function::find(var_container, substr.var_container, start, end);
 }
 
 //rfind() 方法从右边开始检测字符串中是否包含子字符串 substr
@@ -175,7 +177,7 @@ long_max_t pystring_utf32_class::py_find(const pystring_utf32_class &substr,
 long_max_t pystring_utf32_class::py_rfind(const pystring_utf32_class &substr,
 	long_max_t start, long_max_t end) const
 {
-	return pystring_utf32::rfind(var_container, substr.var_container, start, end);
+	return pystring_utf32_function::rfind(var_container, substr.var_container, start, end);
 }
 
 //index() 方法检测字符串中是否包含子字符串 substr
@@ -184,7 +186,7 @@ long_max_t pystring_utf32_class::py_rfind(const pystring_utf32_class &substr,
 long_max_t pystring_utf32_class::py_index(const pystring_utf32_class &substr,
 	long_max_t start, long_max_t end) const
 {
-	return pystring_utf32::index(var_container, substr.var_container, start, end);
+	return pystring_utf32_function::index(var_container, substr.var_container, start, end);
 }
 
 //rindex() 方法从右边开始检测字符串中是否包含子字符串 substr
@@ -193,7 +195,7 @@ long_max_t pystring_utf32_class::py_index(const pystring_utf32_class &substr,
 long_max_t pystring_utf32_class::py_rindex(const pystring_utf32_class &substr,
 	long_max_t start, long_max_t end) const
 {
-	return pystring_utf32::rindex(var_container, substr.var_container, start, end);
+	return pystring_utf32_function::rindex(var_container, substr.var_container, start, end);
 }
 
 //如果string至少有一个字符并且所有字符都是字母或数字则返回 true, 否则返回 false
@@ -201,7 +203,7 @@ long_max_t pystring_utf32_class::py_rindex(const pystring_utf32_class &substr,
 // "a1\n" -> false
 bool pystring_utf32_class::py_isalnum() const
 {
-	return pystring_utf32::isalnum(var_container);
+	return pystring_utf32_function::isalnum(var_container);
 }
 
 //如果string至少有一个字符并且所有字符都是字母则返回 true, 否则返回 false
@@ -209,7 +211,7 @@ bool pystring_utf32_class::py_isalnum() const
 // "abc" -> true
 bool pystring_utf32_class::py_isalpha() const
 {
-	return pystring_utf32::isalpha(var_container);
+	return pystring_utf32_function::isalpha(var_container);
 }
 
 //如果string至少有一个字符并且所有字符都是数字则返回 true, 否则返回 false
@@ -217,7 +219,7 @@ bool pystring_utf32_class::py_isalpha() const
 // "10" -> true
 bool pystring_utf32_class::py_isdigit() const
 {
-	return pystring_utf32::isdigit(var_container);
+	return pystring_utf32_function::isdigit(var_container);
 }
 
 //如果string中包含至少一个字母，并且所有字符都是小写，则返回 true，否则返回 false
@@ -226,13 +228,13 @@ bool pystring_utf32_class::py_isdigit() const
 //"11" -> false
 bool pystring_utf32_class::py_islower() const
 {
-	return pystring_utf32::isdigit(var_container);
+	return pystring_utf32_function::isdigit(var_container);
 }
 
 //如果string至少有一个字符并且所有字符都是空格（包括\r\n\t\f\v）则返回 true, 否则返回 false
 bool pystring_utf32_class::py_isspace() const
 {
-	return pystring_utf32::isspace(var_container);
+	return pystring_utf32_function::isspace(var_container);
 }
 
 //检测字符串中所有的单词拼写首字母是否为大写，且其他字母为小写
@@ -240,7 +242,7 @@ bool pystring_utf32_class::py_isspace() const
 //"This Is" -> true
 bool pystring_utf32_class::py_istitle() const
 {
-	return pystring_utf32::istitle(var_container);
+	return pystring_utf32_function::istitle(var_container);
 }
 
 //如果string中包含至少一个字母，并且所有字符都是大写，则返回 true，否则返回 false
@@ -249,71 +251,73 @@ bool pystring_utf32_class::py_istitle() const
 //"11" -> false
 bool pystring_utf32_class::py_isupper() const
 {
-	return pystring_utf32::isupper(var_container);
+	return pystring_utf32_function::isupper(var_container);
 }
 
 //将序列中的元素以指定的字符连接生成一个新的字符串。
 pystring_utf32_class pystring_utf32_class::py_join(const std::u32string &str,
 	std::vector<std::u32string> &seq) const
 {
-	return pystring_utf32::join(str, seq);
+	return pystring_utf32_function::join(str, seq);
 }
 
 //将序列中的元素以指定的字符连接生成一个新的字符串。
 pystring_utf32_class pystring_utf32_class::py_join(std::vector<std::u32string> &seq) const
 {
-	return pystring_utf32::join(var_container, seq);
+	return pystring_utf32_function::join(var_container, seq);
 }
 
 //将序列中的元素以指定的字符连接生成一个新的字符串。
 pystring_utf32_class pystring_utf32_class::py_join(const pystring_utf32_class &str,
 	std::vector<pystring_utf32_class> &seq) const
 {
-	std::vector<std::u32string> vec_tmp(to_vector_std_u32string(seq));
-	return pystring_utf32::join(str.var_container, vec_tmp);
+	pystring_utf32_class pystr_ret;
+	pystring_utf32_function::join(str.var_container, seq, pystr_ret);
+	return pystr_ret;
 }
 
 //将序列中的元素以指定的字符连接生成一个新的字符串。
 pystring_utf32_class pystring_utf32_class::py_join(std::vector<pystring_utf32_class> &seq) const
 {
-	std::vector<std::u32string> vec_tmp(to_vector_std_u32string(seq));
-	return pystring_utf32::join(var_container, vec_tmp);
+	pystring_utf32_class pystr_ret;
+	pystring_utf32_function::join(var_container, seq, pystr_ret);
+	return pystr_ret;
 }
 
 //返回一个原字符串左对齐,并使用空格填充至长度 width 的新字符串
 pystring_utf32_class pystring_utf32_class::py_ljust(long_max_t width, char32_t fillchar) const
 {
-	return pystring_utf32::ljust(var_container, width, fillchar);
+	return pystring_utf32_function::ljust(var_container, width, fillchar);
 }
 
 //返回一个原字符串右对齐,并使用空格填充至长度 width 的新字符串
 pystring_utf32_class pystring_utf32_class::py_rjust(long_max_t width, char32_t fillchar) const
 {
-	return pystring_utf32::rjust(var_container, width, fillchar);
+	return pystring_utf32_function::rjust(var_container, width, fillchar);
 }
 
 //转换所有字符为小写
 pystring_utf32_class pystring_utf32_class::py_lower() const
 {
-	return pystring_utf32::lower(var_container);
+	return pystring_utf32_function::lower(var_container);
 }
 
 //转换所有字符为大写
 pystring_utf32_class pystring_utf32_class::py_upper() const
 {
-	return pystring_utf32::upper(var_container);
+	return pystring_utf32_function::upper(var_container);
 }
 
 //lstrip() 方法用于截掉字符串左边的空格(包括\t\r\n)或指定字符。
 pystring_utf32_class pystring_utf32_class::py_lstrip(const pystring_utf32_class &chars) const
 {
-	return pystring_utf32::lstrip(var_container, chars.var_container);
+	return pystring_utf32_function::lstrip(var_container, chars.var_container);
 }
 
 //rstrip() 方法用于截掉字符串左边的空格(包括\t\r\n)或指定字符。
 pystring_utf32_class pystring_utf32_class::py_rstrip(const pystring_utf32_class &chars) const
 {
-	return pystring_utf32::rstrip(var_container, chars.var_container);
+	return pystring_utf32_function::rstrip(var_container, chars.var_container);
 }
 
 //返回一个3元的元组，第一个为分隔符左边的子串，第二个为分隔符本身，第三个为分隔符右边的子串。
@@ -321,9 +325,13 @@ pystring_utf32_class pystring_utf32_class::py_rstrip(const pystring_utf32_class 
 std::vector<pystring_utf32_class> pystring_utf32_class::py_partition(const pystring_utf32_class &sep)
 const
 {
-	std::vector<std::u32string> vec_tmp(pystring_utf32::partition(var_container,
-		sep.var_container));
-	return to_vector_utfpystring(vec_tmp);
+	std::vector<pystring_utf32_class> vec_ret;
+	pystring_utf32_function::partition(
+		vec_ret,
+		var_container,
+		sep.var_container
+	);
+	return vec_ret;
 }
 
 //从右边开始返回一个3元的元组，第一个为分隔符左边的子串，第二个为分隔符本身，第三个为分隔符右边的子串。
@@ -331,54 +339,68 @@ const
 std::vector<pystring_utf32_class> pystring_utf32_class::py_rpartition(const pystring_utf32_class &sep)
 const
 {
-	std::vector<std::u32string> vec_tmp(pystring_utf32::rpartition(var_container,
-		sep.var_container));
-	return to_vector_utfpystring(vec_tmp);
+	std::vector<pystring_utf32_class> vec_ret;
+	pystring_utf32_function::rpartition(
+		vec_ret,
+		var_container,
+		sep.var_container
+	);
+	return vec_ret;
 }
 
 //把 string 中的 str1 替换成 str2, 如果 count 指定，则替换不超过 count 次.
 pystring_utf32_class pystring_utf32_class::py_replace(const pystring_utf32_class &oldstr,
 	const pystring_utf32_class &newstr, long_max_t count) const
 {
-	return pystring_utf32::replace(var_container, oldstr.var_container, newstr.var_container,
+	return pystring_utf32_function::replace(var_container, oldstr.var_container, newstr.var_container,
 		count);
 }
 
 //strip() 方法用于截掉字符串两边的空格(包括\t\r\n)或指定字符。
 pystring_utf32_class pystring_utf32_class::py_strip(const pystring_utf32_class &chars) const
 {
-	return pystring_utf32::strip(var_container, chars.var_container);
+	return pystring_utf32_function::strip(var_container, chars.var_container);
 }
 
 //字符串从右分割
 std::vector<pystring_utf32_class> pystring_utf32_class::py_rsplit(const pystring_utf32_class &chars
 	, long_max_t maxsplit) const
 {
-	std::vector<std::u32string> vec_tmp(pystring_utf32::rsplit(var_container,
-		chars.var_container, maxsplit));
-	return to_vector_utfpystring(vec_tmp);
+	std::vector<pystring_utf32_class> vec_ret;
+	pystring_utf32_function::rsplit(
+		vec_ret,
+		var_container,
+		chars.var_container,
+		maxsplit
+	);
+	return vec_ret;
 }
 
 //字符串分割
 std::vector<pystring_utf32_class> pystring_utf32_class::py_split(const pystring_utf32_class &chars
 	, long_max_t maxsplit) const
 {
-	std::vector<std::u32string> vec_tmp(pystring_utf32::split(var_container,
-		chars.var_container, maxsplit));
-	return to_vector_utfpystring(vec_tmp);
+	std::vector<pystring_utf32_class> vec_ret;
+	pystring_utf32_function::split(
+		vec_ret,
+		var_container,
+		chars.var_container,
+		maxsplit
+	);
+	return vec_ret;
 }
 
 //字符串大小写翻转
 pystring_utf32_class pystring_utf32_class::py_swapcase() const
 {
-	return pystring_utf32::swapcase(var_container);
+	return pystring_utf32_function::swapcase(var_container);
 }
 
 //返回"标题化"的 string,就是说所有单词都是以大写开始，其余字母均为小写
 //"This is.no 123" -> "This Is.No 123"
 pystring_utf32_class pystring_utf32_class::py_title() const
 {
-	return pystring_utf32::title(var_container);
+	return pystring_utf32_function::title(var_container);
 }
 
 //用于字符映射的转换
@@ -388,14 +410,23 @@ pystring_utf32_class pystring_utf32_class::py_title() const
 pystring_utf32_class pystring_utf32_class::py_translate(const pystring_utf32_class &intab,
 	const pystring_utf32_class &outtab) const
 {
-	return pystring_utf32::translate(var_container, intab.var_container, outtab.var_container);
+	return pystring_utf32_function::translate(var_container, intab.var_container, outtab.var_container);
 }
 
 //从左边开始使用字符0填充至指定长度，返回新字符串使原字符串右对齐。
 //zfill("test",10); -> "000000test"
 pystring_utf32_class pystring_utf32_class::py_zfill(std::u32string::size_type width) const
 {
-	return pystring_utf32::zfill(var_container, width);
+	return pystring_utf32_function::zfill(var_container, width);
+}
+
+//python风格的字符串格式化
+// format(U"{} + {} = {}",std::vector<std::u32string>{U"1",U"2",U"3"})
+pystring_utf32_class pystring_utf32_class::py_format(const pystring_utf32_class format_str,
+	std::vector<std::u32string> vec_format_list) const
+{
+	std::u32string u32str_ret = pystring_utf32_function::format(format_str.var_container, vec_format_list);
+	return u32str_ret;
 }
 
 //python风格的字符串格式化
@@ -403,8 +434,9 @@ pystring_utf32_class pystring_utf32_class::py_zfill(std::u32string::size_type wi
 pystring_utf32_class pystring_utf32_class::py_format(const pystring_utf32_class format_str,
 	std::vector<pystring_utf32_class> vec_format_list) const
 {
-	std::vector<std::u32string> vec_tmp(to_vector_std_u32string(vec_format_list));
-	return pystring_utf32::format(format_str.var_container, vec_tmp);
+	std::u32string u32str_ret;
+	pystring_utf32_function::format(format_str.var_container, vec_format_list, u32str_ret);
+	return u32str_ret;
 }
 
 //取两个字符串之间的字符串
@@ -412,7 +444,7 @@ pystring_utf32_class pystring_utf32_class::py_between_start_and_end_string(const
 	&str_start,
 	const pystring_utf32_class &str_end) const
 {
-	return pystring_utf32::between_start_and_end_string(var_container,
+	return pystring_utf32_function::between_start_and_end_string(var_container,
 		str_start.var_container,
 		str_end.var_container);
 }
@@ -423,7 +455,7 @@ bool pystring_utf32_class::py_between_start_and_end_pos(const pystring_utf32_cla
 	std::u32string::size_type &n_start,
 	std::u32string::size_type &n_copylen) const
 {
-	return pystring_utf32::between_start_and_end_pos(var_container, str_start.var_container,
+	return pystring_utf32_function::between_start_and_end_pos(var_container, str_start.var_container,
 		str_end.var_container,
 		n_start, n_copylen);
 }
@@ -481,32 +513,6 @@ std::u16string pystring_utf32_class::to_std_u16string() const
 	return str_ret;
 }
 
-//std::vector<std::u32string>转换为std::vector<pystring_utf32_class>
-std::vector<pystring_utf32_class> pystring_utf32_class::to_vector_utfpystring(
-	std::vector<std::u32string> &vec_str) const
-{
-	std::vector<pystring_utf32_class> vec_ret;
-	size_t n_vec_str_size = vec_str.size();
-	vec_ret.resize(n_vec_str_size);
-	for (size_t i = 0; i < n_vec_str_size; i++)
-	{
-		vec_ret[i] = std::move(vec_str[i]);
-	}
-	return vec_ret;
-}
-//std::vector<pystring_utf32_class>转换为std::vector<std::u32string>
-std::vector<std::u32string> pystring_utf32_class::to_vector_std_u32string(
-	std::vector<pystring_utf32_class> &vec_utfstr) const
-{
-	std::vector<std::u32string> vec_ret;
-	size_t n_vec_str_size = vec_utfstr.size();
-	vec_ret.resize(n_vec_str_size);
-	for (size_t i = 0; i < n_vec_str_size; i++)
-	{
-		vec_ret[i] = std::move(vec_utfstr[i].var_container);
-	}
-	return vec_ret;
-}
 
 //pystring_ext
 // basic constructor
@@ -547,7 +553,7 @@ pystring_ext::pystring_ext(const pystring_ext &&str_input) : std_string_proxy(st
 }
 
 pystring_ext::pystring_ext(const std::string &str, size_t pos, size_t len)
-	: std_string_proxy(str, pos,len)
+	: std_string_proxy(str, pos, len)
 {
 
 }
@@ -574,7 +580,7 @@ pystring_ext::pystring_ext(const char *s, size_t n) : std_string_proxy(s, n)
 
 }
 
-pystring_ext::pystring_ext(size_t n, char c) : std_string_proxy(n,c)
+pystring_ext::pystring_ext(size_t n, char c) : std_string_proxy(n, c)
 {
 
 }
@@ -605,12 +611,12 @@ pystring_ext& pystring_ext::operator= (const pystring_ext &&str)
 //类型转换
 pystring_ext::operator std::string&()
 {
-	return var_container;
+return var_container;
 }
 
 pystring_ext::operator const std::string&() const
 {
-	return var_container;
+return var_container;
 }
 */
 
@@ -773,15 +779,17 @@ pystring_ext pystring_ext::py_join(std::vector<std::string> &seq) const
 pystring_ext pystring_ext::py_join(const std::string &str,
 	std::vector<pystring_ext> &seq) const
 {
-	std::vector<std::string> vec_tmp(to_vector_std_string(seq));
-	return pystring_function::join(str, vec_tmp);
+	pystring_ext pystr_ret;
+	pystring_function::join(str, seq, pystr_ret);
+	return pystr_ret;
 }
 
 //将序列中的元素以指定的字符连接生成一个新的字符串。
 pystring_ext pystring_ext::py_join(std::vector<pystring_ext> &seq) const
 {
-	std::vector<std::string> vec_tmp(to_vector_std_string(seq));
-	return pystring_function::join(var_container, vec_tmp);
+	pystring_ext pystr_ret;
+	pystring_function::join(var_container, seq, pystr_ret);
+	return pystr_ret;
 }
 
 //返回一个原字符串左对齐,并使用空格填充至长度 width 的新字符串
@@ -825,8 +833,9 @@ pystring_ext pystring_ext::py_rstrip(const std::string &chars) const
 std::vector<pystring_ext> pystring_ext::py_partition(const std::string &sep)
 const
 {
-	std::vector<std::string> vec_tmp(pystring_function::partition(var_container, sep));
-	return to_vector_pystring_ext(vec_tmp);
+	std::vector<pystring_ext> vec_ret;
+	pystring_function::partition(vec_ret, var_container, sep);
+	return vec_ret;
 }
 
 //从右边开始返回一个3元的元组，第一个为分隔符左边的子串，第二个为分隔符本身，第三个为分隔符右边的子串。
@@ -834,8 +843,9 @@ const
 std::vector<pystring_ext> pystring_ext::py_rpartition(const std::string &sep)
 const
 {
-	std::vector<std::string> vec_tmp(pystring_function::rpartition(var_container, sep));
-	return to_vector_pystring_ext(vec_tmp);
+	std::vector<pystring_ext> vec_ret;
+	pystring_function::rpartition(vec_ret, var_container, sep);
+	return vec_ret;
 }
 
 //把 string 中的 str1 替换成 str2, 如果 count 指定，则替换不超过 count 次.
@@ -855,17 +865,18 @@ pystring_ext pystring_ext::py_strip(const std::string &chars) const
 std::vector<pystring_ext> pystring_ext::py_rsplit(const std::string &chars
 	, long_max_t maxsplit) const
 {
-	std::vector<std::string> vec_tmp(pystring_function::rsplit(var_container, chars, maxsplit));
-	//return convert_type::convert_vector_type_move<pystring_ext, std::string>(vec_tmp);
-	return to_vector_pystring_ext(vec_tmp);
+	std::vector<pystring_ext> vec_tmp;
+	pystring_function::rsplit(vec_tmp, var_container, chars, maxsplit);
+	return vec_tmp;
 }
 
 //字符串分割
 std::vector<pystring_ext> pystring_ext::py_split(const std::string &chars
 	, long_max_t maxsplit) const
 {
-	std::vector<std::string> vec_tmp(pystring_function::split(var_container, chars, maxsplit));
-	return to_vector_pystring_ext(vec_tmp);
+	std::vector<pystring_ext> vec_tmp;
+	pystring_function::split(vec_tmp, var_container, chars, maxsplit);
+	return vec_tmp;
 }
 
 //字符串大小写翻转
@@ -901,9 +912,21 @@ pystring_ext pystring_ext::py_zfill(std::string::size_type width) const
 //python风格的字符串格式化
 // format(U"{} + {} = {}",std::vector<std::string>{U"1",U"2",U"3"})
 pystring_ext pystring_ext::py_format(std::string format_str,
-	std::vector<std::string > vec_format_list) const
+	std::vector<std::string> vec_format_list) const
 {
-	return pystring_function::format(format_str, vec_format_list);
+	std::string str_ret;
+	pystring_function::format(format_str, vec_format_list, str_ret);
+	return str_ret;
+}
+
+//python风格的字符串格式化
+// format(U"{} + {} = {}",std::vector<std::string>{U"1",U"2",U"3"})
+pystring_ext pystring_ext::py_format(std::string format_str,
+	std::vector<pystring_ext> vec_format_list) const
+{
+	std::string str_ret;
+	pystring_function::format(format_str, vec_format_list, str_ret);
+	return str_ret;
 }
 
 //取两个字符串之间的字符串
@@ -1002,34 +1025,4 @@ std::u32string pystring_ext::to_std_u32string()
 	std::u32string u32_data;
 	uft_conv::utf8_to_utf32(var_container, u32_data);
 	return u32_data;
-}
-
-//private std::vector<pystring_ext> to_vector_pystring_ext(const std::vector<std::string> &vec_str) const;
-std::vector<pystring_ext>
-pystring_ext::to_vector_pystring_ext
-(std::vector<std::string> &vec_str) const
-{
-	std::vector<pystring_ext> vec_ret;
-	size_t n_vec_str_size = vec_str.size();
-	vec_ret.resize(n_vec_str_size);
-	for (size_t i = 0; i < n_vec_str_size; i++)
-	{
-		vec_ret[i] = std::move(vec_str[i]);
-	}
-	return vec_ret;
-}
-
-//private std::vector<std::string> to_vector_std_string(std::vector<pystring_ext> &vec_pystr) const;
-std::vector<std::string>
-pystring_ext::to_vector_std_string
-(std::vector<pystring_ext> &vec_pystr) const
-{
-	std::vector<std::string> vec_ret;
-	size_t n_vec_str_size = vec_pystr.size();
-	vec_ret.resize(n_vec_str_size);
-	for (size_t i = 0; i < n_vec_str_size; i++)
-	{
-		vec_ret[i] = std::move((std::string)vec_pystr[i]);
-	}
-	return vec_ret;
 }
