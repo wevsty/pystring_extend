@@ -22,13 +22,13 @@
 namespace pystring_function
 {
 	//安全转换unsigned到signed
-	inline long_max_t safe_to_sigend_cast(size_t n_input);
+	long_max_t safe_to_sigend_cast(size_t n_input);
 
 	//安全转换signed到unsigned
-	inline std::string::size_type safe_to_unsigend_cast(long_max_t n_input);
+	std::string::size_type safe_to_unsigend_cast(long_max_t n_input);
 
 	//调整开始和结束下标，主要用于负数时
-	inline void adjust_indices(long_max_t &start, long_max_t &end, long_max_t &len);
+	void adjust_indices(long_max_t &start, long_max_t &end, long_max_t &len);
 
 	//切片方法
 	std::string slice(const std::string &str, long_max_t start = 0,

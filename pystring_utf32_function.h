@@ -22,19 +22,13 @@
 namespace pystring_utf32_function
 {
 	//安全转换unsigned到signed
-	inline long_max_t safe_to_sigend_cast(size_t n_input);
+	long_max_t safe_to_sigend_cast(size_t n_input);
 
 	//安全转换signed到unsigned
-	inline std::u32string::size_type safe_to_unsigend_cast(long_max_t n_input);
+	std::u32string::size_type safe_to_unsigend_cast(long_max_t n_input);
 
 	//调整开始和结束下标，主要用于负数时
-	inline void adjust_indices(long_max_t &start, long_max_t &end, long_max_t &len);
-
-	//转换类型
-	//convert<string>(10)
-	//convert<int>(string)
-	template<typename out_type, typename in_value>
-	out_type convert_type(const in_value &t);
+	void adjust_indices(long_max_t &start, long_max_t &end, long_max_t &len);
 
 	//切片方法
 	std::u32string slice(const std::u32string &str, long_max_t start = 0,
