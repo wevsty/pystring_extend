@@ -3,6 +3,9 @@
  
  一个兼容std::string和Python String风格的C++字符串库。
  
+# Levels of thread safety
+ Conditionally safe
+
 # Compiler compatibility
 | Compiler                    | Build Test    |
 | --------------------------- |:-------------:|
@@ -48,11 +51,11 @@ Note : Compilation needs to support C++11 standards.
     #include <iostream>
     int main()
     {
-    std::cout<<pystring_function::slice(U"abcdef", 2, 3)<<std::endl;
+    std::cout<<pystring_utf32_function::slice(U"abcdef", 2, 3)<<std::endl;
     //slice为切片函数，函数将会返回一个std::u32string对象，内容为U"c"。
     //在举一些其他的例子
-    //pystring_function::endswith(U"test.exe", U"exe"); 将返回 true
-    //pystring_function::lower(U"ThIs"); 将返回一个std::u32string对象,内容为U"this"
+    //pystring_utf32_function::endswith(U"test.exe", U"exe"); 将返回 true
+    //pystring_utf32_function::lower(U"ThIs"); 将返回一个std::u32string对象,内容为U"this"
     return 0;
     }
  ```
@@ -78,7 +81,13 @@ Note : Compilation needs to support C++11 standards.
     
     //Python风格的成员函数，与Python String的行为一致（尽可能一致，部分函数略有区别）会返回一个新的pystring_ext对象
     //不会修改test_string对象本身的内容
-    test_string.py_replace("end","start")
+    test_string.py_replace("end","start");
+    
+    //也可以实现一些类似python的用法，例如：
+    test_string.py_replace("end", "start").py_upper().append("close");
+    //最后将返回一个pystring_ext对象，内容为"INPUT DATA APPSTART close"
+    
+    //pystring_utf32_class的用法类似，不再赘述。
     return 0;
     }
  ```
