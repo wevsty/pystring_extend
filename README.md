@@ -8,8 +8,9 @@
 | Microsoft Visual C++ 2017   | pass          |
 | gcc version 5.4.0 20160609  | pass          |
 | Others                      | unknow        |
- Note : Compilation needs to support C++11 standards.
- 注：编译需要支持C++11标准。
+
+Note : Compilation needs to support C++11 standards.
+注：编译需要支持C++11标准。
 
 # 使用方法
  项目中提供了2类字符串处理函数（或者类），一类为不区分编码的字符串函数，另一类为强制使用utf32编码的字符串函数，在项目中可以自由的使用。使用方法如下：
@@ -55,8 +56,10 @@
     {
     //兼容std::string的初始化方法
     pystring_ext test_string("input data");
+    
     //可以直接使用C++ STL的标准类成员函数，行为与STL一致。
     test_string.append(" append ");
+    
     //Python风格的成员函数，与Python String的行为一致（尽可能一致，部分函数略有区别）会返回一个新的pystring_ext对象
     //不会修改test_string对象本身的内容
     test_string.py_replace("end","start")
