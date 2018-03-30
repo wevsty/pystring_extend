@@ -1,12 +1,14 @@
 # pystring_extend
+
  A C++ class compatible std::string and Python string style.
- 
  一个兼容std::string和Python String风格的C++字符串库。
  
 # Levels of thread safety
+
  Conditionally safe
 
 # Compiler compatibility
+
 | Compiler                    | Build Test    |
 | --------------------------- |:-------------:|
 | Microsoft Visual C++ 2017   | pass          |
@@ -69,6 +71,7 @@ Note : Compilation needs to support C++11 standards.
  
  举例：
    ```cpp
+    //也可以简单的include "pystring.h"
     #include "pystring_class.h"
     #include <iostream>
     int main()
