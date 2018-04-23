@@ -39,23 +39,25 @@ namespace convert_type
 	return l64_ret;
 	}
 	*/
-	template<>
+
+	//template<>
 	long long to_long64(const char *str_input)
 	{
 		return to_long64(std::string(str_input));
 	}
 
-	template <>
+	//template <>
 	long long to_long64(const char16_t *str_input)
 	{
 		return to_long64(std::u16string(str_input));
 	}
 
-	template <>
+	//template <>
 	long long to_long64(const char32_t *str_input)
 	{
 		return to_long64(std::u32string(str_input));
 	}
+
 
 	/*
 	template <typename STRING_TYPE>
@@ -113,19 +115,20 @@ namespace convert_type
 	return ld_ret;
 	}
 	*/
-	template <>
+
+	//template <>
 	long double to_long_double(const char *str_input)
 	{
 		return to_long_double(std::string(str_input));
 	}
 
-	template <>
+	//template <>
 	long double to_long_double(const char16_t *str_input)
 	{
 		return to_long_double(std::u16string(str_input));
 	}
 
-	template <>
+	//template <>
 	long double to_long_double(const char32_t *str_input)
 	{
 		return to_long_double(std::u32string(str_input));

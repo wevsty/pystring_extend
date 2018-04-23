@@ -15,4 +15,7 @@
 #include "base_string_template.h"
 #include "ConvertUTF.h"
 #include "data_conv.h"
+#include "std_namespace_injection.h"
+
+typedef pystring_ext pystrex;
 #endif

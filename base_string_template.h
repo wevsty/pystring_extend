@@ -1219,7 +1219,7 @@ public:
 
 	void toupper_modify()
 	{
-		const size_t n_strlen = size();
+		const size_t n_strlen = var_container.size();
 		for (size_t i = 0; i < n_strlen; i++)
 		{
 			BASE_STRING_CHAR_TYPE &ch = var_container.at(i);

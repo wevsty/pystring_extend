@@ -46,14 +46,12 @@ namespace convert_type
 		return l64_ret;
 	}
 
-	template<>
-	long long to_long64(const char * str_input);
-
-	template <>
-	long long to_long64(const char16_t* str_input);
-
-	template <>
-	long long to_long64(const char32_t* str_input);
+	//template<>
+	long long to_long64(const char *str_input);
+	//template <>
+	long long to_long64(const char16_t *str_input);
+	//template <>
+	long long to_long64(const char32_t *str_input);
 
 	//template <typename STRING_TYPE>
 	//long double to_long_double(STRING_TYPE str_input);
@@ -112,14 +110,12 @@ namespace convert_type
 		return ld_ret;
 	}
 
-	template <>
-	long double to_long_double(const char* str_input);
-
-	template <>
-	long double to_long_double(const char16_t* str_input);
-
-	template <>
-	long double to_long_double(const char32_t* str_input);
+	//template <>
+	long double to_long_double(const char *str_input);
+	//template <>
+	long double to_long_double(const char16_t *str_input);
+	//template <>
+	long double to_long_double(const char32_t *str_input);
 
 	// long 64 to string
 	std::string long64_to_string(long long l64_input);
@@ -172,13 +168,13 @@ namespace uft_conv
 	bool utf8_to_wstring(const std::string& str_input, std::wstring& str_output);
 	bool utf16_to_wstring(const std::u16string& str_input, std::wstring& str_output);
 	bool utf32_to_wstring(const std::u32string& str_input, std::wstring& str_output);
-#elif __GNUC__ 
+#elif __GNUC__
 	std::wstring u32string_to_wstring(const std::u32string& str_input);
 	std::u32string wstring_to_u32string(const std::wstring& str_input);
 	bool utf8_to_wstring(const std::string& str_input, std::wstring& str_output);
 	bool utf16_to_wstring(const std::u16string& str_input, std::wstring& str_output);
 	bool utf32_to_wstring(const std::u32string& str_input, std::wstring& str_output);
-	//#endif __GNUC__ 
+	//#endif __GNUC__
 //#elif __MINGW32__
 #endif // !_MSC_VER
 }
