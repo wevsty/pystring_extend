@@ -1,5 +1,5 @@
 ﻿#include "data_conv.h"
-#include "ConvertUTF.h"
+#include "convert_utf.h"
 
 namespace convert_type
 {
@@ -397,17 +397,17 @@ namespace uft_conv
 		//n_buffer_len为最长元素个数
 		size_t n_buffer_len = str_input.size() + 1;
 		size_t n_buffer_safe_len = n_buffer_len - 1;
-		size_t n_buffer_size = n_buffer_len * sizeof(UTF32);
-		UTF32 *utf_buffer = new UTF32[n_buffer_len];
-		UTF32 *utf_buffer_bak = utf_buffer;
-		UTF32 *utf_buffer_end = utf_buffer + n_buffer_safe_len;
+		size_t n_buffer_size = n_buffer_len * sizeof(UTF32_CHAR);
+		UTF32_CHAR *utf_buffer = new UTF32_CHAR[n_buffer_len];
+		UTF32_CHAR *utf_buffer_bak = utf_buffer;
+		UTF32_CHAR *utf_buffer_end = utf_buffer + n_buffer_safe_len;
 		memset((void *)utf_buffer, 0, n_buffer_size);
-		const UTF8 *u8_start = (const UTF8 *)str_input.c_str();
-		const UTF8 *u8_end = u8_start + str_input.size();
+		const UTF8_CHAR *u8_start = (const UTF8_CHAR *)str_input.c_str();
+		const UTF8_CHAR *u8_end = u8_start + str_input.size();
 		bool bret = false;
-		ConversionResult conv_ret = ConvertUTF8toUTF32(&u8_start, u8_end, &utf_buffer,
-			utf_buffer_end, strictConversion);
-		if (conv_ret == conversionOK)
+		CONVERSION_RESULT conv_ret = ConvertUTF8toUTF32(&u8_start, u8_end, &utf_buffer,
+			utf_buffer_end, STRICT_CONVERSION);
+		if (conv_ret == CONVERSION_OK)
 		{
 			bret = true;
 			str_output.append((char32_t *)utf_buffer_bak);
@@ -419,20 +419,20 @@ namespace uft_conv
 	bool utf32_to_utf8(const std::u32string &str_input, std::string &str_output)
 	{
 		str_output.clear();
-		//一个UFT32字符最大可变成6个字节的UTF8
+		//一个UFT32字符最大可变成6个字节的UTF8_CHAR
 		size_t n_buffer_len = str_input.size() * 6 + 1;
 		size_t n_buffer_safe_len = n_buffer_len - 1;
-		size_t n_buffer_size = n_buffer_len * sizeof(UTF8);
-		UTF8 *utf_buffer = new UTF8[n_buffer_len];
-		UTF8 *utf_buffer_bak = utf_buffer;
-		UTF8 *utf_buffer_end = utf_buffer + n_buffer_safe_len;
+		size_t n_buffer_size = n_buffer_len * sizeof(UTF8_CHAR);
+		UTF8_CHAR *utf_buffer = new UTF8_CHAR[n_buffer_len];
+		UTF8_CHAR *utf_buffer_bak = utf_buffer;
+		UTF8_CHAR *utf_buffer_end = utf_buffer + n_buffer_safe_len;
 		memset((void *)utf_buffer, 0, n_buffer_size);
-		const UTF32 *u32_start = (const UTF32 *)str_input.c_str();
-		const UTF32 *u32_end = u32_start + str_input.size();
+		const UTF32_CHAR *u32_start = (const UTF32_CHAR *)str_input.c_str();
+		const UTF32_CHAR *u32_end = u32_start + str_input.size();
 		bool bret = false;
-		ConversionResult conv_ret = ConvertUTF32toUTF8(&u32_start, u32_end, &utf_buffer,
-			utf_buffer_end, strictConversion);
-		if (conv_ret == conversionOK)
+		CONVERSION_RESULT conv_ret = ConvertUTF32toUTF8(&u32_start, u32_end, &utf_buffer,
+			utf_buffer_end, STRICT_CONVERSION);
+		if (conv_ret == CONVERSION_OK)
 		{
 			bret = true;
 			str_output.append((char *)utf_buffer_bak);
@@ -444,20 +444,20 @@ namespace uft_conv
 	bool utf16_to_utf32(const std::u16string &str_input, std::u32string &str_output)
 	{
 		str_output.clear();
-		//UTF16存放一个字最多需要4个字节，一个UFT字符为2个字节，所以转化为UTF32最大需要size()*2个字节
+		//UTF16_CHAR存放一个字最多需要4个字节
 		size_t n_buffer_len = str_input.size() + 1;
 		size_t n_buffer_safe_len = n_buffer_len - 1;
-		size_t n_buffer_size = n_buffer_len * sizeof(UTF32);
-		UTF32 *utf_buffer = new UTF32[n_buffer_len];
-		UTF32 *utf_buffer_bak = utf_buffer;
-		UTF32 *utf_buffer_end = utf_buffer + n_buffer_safe_len;
+		size_t n_buffer_size = n_buffer_len * sizeof(UTF32_CHAR);
+		UTF32_CHAR *utf_buffer = new UTF32_CHAR[n_buffer_len];
+		UTF32_CHAR *utf_buffer_bak = utf_buffer;
+		UTF32_CHAR *utf_buffer_end = utf_buffer + n_buffer_safe_len;
 		memset((void *)utf_buffer, 0, n_buffer_size);
-		const UTF16 *u16_start = (const UTF16 *)str_input.c_str();
-		const UTF16 *u16_end = u16_start + str_input.size();
+		const UTF16_CHAR *u16_start = (const UTF16_CHAR *)str_input.c_str();
+		const UTF16_CHAR *u16_end = u16_start + str_input.size();
 		bool bret = false;
-		ConversionResult conv_ret = ConvertUTF16toUTF32(&u16_start, u16_end,
-			&utf_buffer, utf_buffer_end, strictConversion);
-		if (conv_ret == conversionOK)
+		CONVERSION_RESULT conv_ret = ConvertUTF16toUTF32(&u16_start, u16_end,
+			&utf_buffer, utf_buffer_end, STRICT_CONVERSION);
+		if (conv_ret == CONVERSION_OK)
 		{
 			bret = true;
 			str_output.append((char32_t *)utf_buffer_bak);
@@ -469,20 +469,20 @@ namespace uft_conv
 	bool utf32_to_utf16(const std::u32string &str_input, std::u16string &str_output)
 	{
 		str_output.clear();
-		//UTF16存放一个字最多需要4个字节，一个UFT字符为2个字节，所以转化为UTF32最大需要size()*2个字节
+		//UTF16_CHAR存放一个字最多需要4个字节
 		size_t n_buffer_len = str_input.size() * 2 + 1;
 		size_t n_buffer_safe_len = n_buffer_len - 1;
-		size_t n_buffer_size = n_buffer_len * sizeof(UTF16);
-		UTF16 *utf_buffer = new UTF16[n_buffer_len];
-		UTF16 *utf_buffer_bak = utf_buffer;
-		UTF16 *utf_buffer_end = utf_buffer + n_buffer_safe_len;
+		size_t n_buffer_size = n_buffer_len * sizeof(UTF16_CHAR);
+		UTF16_CHAR *utf_buffer = new UTF16_CHAR[n_buffer_len];
+		UTF16_CHAR *utf_buffer_bak = utf_buffer;
+		UTF16_CHAR *utf_buffer_end = utf_buffer + n_buffer_safe_len;
 		memset((void *)utf_buffer, 0, n_buffer_size);
-		const UTF32 *u32_start = (const UTF32 *)str_input.c_str();
-		const UTF32 *u32_end = u32_start + str_input.size();
+		const UTF32_CHAR *u32_start = (const UTF32_CHAR *)str_input.c_str();
+		const UTF32_CHAR *u32_end = u32_start + str_input.size();
 		bool bret = false;
-		ConversionResult conv_ret = ConvertUTF32toUTF16(&u32_start, u32_end,
-			&utf_buffer, utf_buffer_end, strictConversion);
-		if (conv_ret == conversionOK)
+		CONVERSION_RESULT conv_ret = ConvertUTF32toUTF16(&u32_start, u32_end,
+			&utf_buffer, utf_buffer_end, STRICT_CONVERSION);
+		if (conv_ret == CONVERSION_OK)
 		{
 			bret = true;
 			str_output.append((char16_t *)utf_buffer_bak);
@@ -497,17 +497,17 @@ namespace uft_conv
 		//n_buffer_len为最长元素个数
 		size_t n_buffer_len = str_input.size() + 1;
 		size_t n_buffer_safe_len = n_buffer_len - 1;
-		size_t n_buffer_size = n_buffer_len * sizeof(UTF16);
-		UTF16 *utf_buffer = new UTF16[n_buffer_len];
-		UTF16 *utf_buffer_bak = utf_buffer;
-		UTF16 *utf_buffer_end = utf_buffer + n_buffer_safe_len;
+		size_t n_buffer_size = n_buffer_len * sizeof(UTF16_CHAR);
+		UTF16_CHAR *utf_buffer = new UTF16_CHAR[n_buffer_len];
+		UTF16_CHAR *utf_buffer_bak = utf_buffer;
+		UTF16_CHAR *utf_buffer_end = utf_buffer + n_buffer_safe_len;
 		memset((void *)utf_buffer, 0, n_buffer_size);
-		const UTF8 *u8_start = (const UTF8 *)str_input.c_str();
-		const UTF8 *u8_end = u8_start + str_input.size();
+		const UTF8_CHAR *u8_start = (const UTF8_CHAR *)str_input.c_str();
+		const UTF8_CHAR *u8_end = u8_start + str_input.size();
 		bool bret = false;
-		ConversionResult conv_ret = ConvertUTF8toUTF16(&u8_start, u8_end, &utf_buffer,
-			utf_buffer_end, strictConversion);
-		if (conv_ret == conversionOK)
+		CONVERSION_RESULT conv_ret = ConvertUTF8toUTF16(&u8_start, u8_end, &utf_buffer,
+			utf_buffer_end, STRICT_CONVERSION);
+		if (conv_ret == CONVERSION_OK)
 		{
 			bret = true;
 			str_output.append((char16_t *)utf_buffer_bak);
@@ -519,20 +519,20 @@ namespace uft_conv
 	bool utf16_to_utf8(const std::u16string &str_input, std::string &str_output)
 	{
 		str_output.clear();
-		//2个UFT16字符最大可变成6个字节的UTF8
+		//2个UFT16字符最大可变成6个字节的UTF8_CHAR
 		size_t n_buffer_len = str_input.size() * 6 + 1;
 		size_t n_buffer_safe_len = n_buffer_len - 1;
-		size_t n_buffer_size = n_buffer_len * sizeof(UTF8);
-		UTF8 *utf_buffer = new UTF8[n_buffer_len];
-		UTF8 *utf_buffer_bak = utf_buffer;
-		UTF8 *utf_buffer_end = utf_buffer + n_buffer_safe_len;
+		size_t n_buffer_size = n_buffer_len * sizeof(UTF8_CHAR);
+		UTF8_CHAR *utf_buffer = new UTF8_CHAR[n_buffer_len];
+		UTF8_CHAR *utf_buffer_bak = utf_buffer;
+		UTF8_CHAR *utf_buffer_end = utf_buffer + n_buffer_safe_len;
 		memset((void *)utf_buffer, 0, n_buffer_size);
-		const UTF16 *u16_start = (const UTF16 *)str_input.c_str();
-		const UTF16 *u16_end = u16_start + str_input.size();
+		const UTF16_CHAR *u16_start = (const UTF16_CHAR *)str_input.c_str();
+		const UTF16_CHAR *u16_end = u16_start + str_input.size();
 		bool bret = false;
-		ConversionResult conv_ret = ConvertUTF16toUTF8(&u16_start, u16_end, &utf_buffer,
-			utf_buffer_end, strictConversion);
-		if (conv_ret == conversionOK)
+		CONVERSION_RESULT conv_ret = ConvertUTF16toUTF8(&u16_start, u16_end, &utf_buffer,
+			utf_buffer_end, STRICT_CONVERSION);
+		if (conv_ret == CONVERSION_OK)
 		{
 			bret = true;
 			str_output.append((char *)utf_buffer_bak);

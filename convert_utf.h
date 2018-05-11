@@ -20,30 +20,30 @@
 * remains attached.
 */
 /* ---------------------------------------------------------------------
-Conversions between UTF32, UTF-16, and UTF-8.  Header file.
+Conversions between UTF32_CHAR, UTF-16, and UTF-8.  Header file.
 Several funtions are included here, forming a complete set of
 conversions between the three formats.  UTF-7 is not included
 here, but is handled in a separate source file.
 Each of these routines takes pointers to input buffers and output
 buffers.  The input buffers are const.
-Each routine converts the text between *sourceStart and sourceEnd,
-putting the result into the buffer between *targetStart and
-targetEnd. Note: the end pointers are *after* the last item: e.g.
-*(sourceEnd - 1) is the last item.
+Each routine converts the text between *source_start and source_end,
+putting the result into the buffer between *target_start and
+target_end. Note: the end pointers are *after* the last item: e.g.
+*(source_end - 1) is the last item.
 The return result indicates whether the conversion was successful,
 and if not, whether the problem was in the source or target buffers.
 (Only the first encountered problem is indicated.)
-After the conversion, *sourceStart and *targetStart are both
+After the conversion, *source_start and *target_start are both
 updated to point to the end of last text successfully converted in
 the respective buffers.
 Input parameters:
-sourceStart - pointer to a pointer to the source buffer.
+source_start - pointer to a pointer to the source buffer.
 The contents of this are modified on return so that
 it points at the next thing to be converted.
-targetStart - similarly, pointer to pointer to the target buffer.
-sourceEnd, targetEnd - respectively pointers to the ends of the
+target_start - similarly, pointer to pointer to the target buffer.
+source_end, target_end - respectively pointers to the ends of the
 two buffers, for overflow checking only.
-These conversion functions take a ConversionFlags argument. When this
+These conversion functions take a CONVERSION_FLAGS argument. When this
 flag is set to strict, both irregular sequences and isolated surrogates
 will cause an error.  When the flag is set to lenient, both irregular
 sequences and isolated surrogates are converted.
@@ -55,8 +55,8 @@ When the flag is set to lenient, characters over 0x10FFFF are converted
 to the replacement character; otherwise (when the flag is set to strict)
 they constitute an error.
 Output parameters:
-The value "sourceIllegal" is returned from some routines if the input
-sequence is malformed.  When "sourceIllegal" is returned, the source
+The value "SOURCE_ILLEGAL" is returned from some routines if the input
+sequence is malformed.  When "SOURCE_ILLEGAL" is returned, the source
 value will point to the illegal value that caused the problem. E.g.,
 in UTF-8 when a sequence is malformed, it points to the start of the
 malformed sequence.
@@ -74,59 +74,61 @@ bit mask & shift operations.
 #if defined(_MSC_VER)
 #pragma once
 #endif
-#ifndef __CONVERT_UTF_C__
-#define __CONVERT_UTF_C__
+#ifndef __CONVERT_UTF_CPP__
+#define __CONVERT_UTF_CPP__
 
-#include <stdint.h>
-typedef uint32_t UTF32;	/* 32 bits */
-typedef uint16_t UTF16;	/* 16 bits */
-typedef uint8_t UTF8;	/* 8 bits */
-typedef unsigned char Boolean; /* 0 or 1 */
-							   /* Some fundamental constants */
-#define UNI_REPLACEMENT_CHAR (UTF32)0x0000FFFD
-#define UNI_MAX_BMP (UTF32)0x0000FFFF
-#define UNI_MAX_UTF16 (UTF32)0x0010FFFF
-#define UNI_MAX_UTF32 (UTF32)0x7FFFFFFF
-#define UNI_MAX_LEGAL_UTF32 (UTF32)0x0010FFFF
+#include <stdint.h> //define uint8_t
+#include <stddef.h> //define size_t
+
+typedef uint32_t UTF32_CHAR;	/* 32 bits */
+typedef uint16_t UTF16_CHAR;	/* 16 bits */
+typedef uint8_t UTF8_CHAR;	/* 8 bits */
+typedef int BOOL_INT; /* 0 or 1 */
+					  /* Some fundamental constants */
+#define UNI_REPLACEMENT_CHAR (UTF32_CHAR)0x0000FFFD
+#define UNI_MAX_BMP (UTF32_CHAR)0x0000FFFF
+#define UNI_MAX_UTF16 (UTF32_CHAR)0x0010FFFF
+#define UNI_MAX_UTF32 (UTF32_CHAR)0x7FFFFFFF
+#define UNI_MAX_LEGAL_UTF32 (UTF32_CHAR)0x0010FFFF
 typedef enum {
-	conversionOK, 		/* conversion successful */
-	sourceExhausted,	/* partial character in source, but hit end */
-	targetExhausted,	/* insuff. room in target for conversion */
-	sourceIllegal		/* source sequence is illegal/malformed */
-} ConversionResult;
+	CONVERSION_OK, 		/*转换成功 conversion successful */
+	SOURCE_EXHAUSTED,	/*源字符串过早结束，可能是数据不完整 partial character in source, but hit end */
+	TARGET_EXHAUSTED,	/*目标空间不足 insuff. room in target for conversion */
+	SOURCE_ILLEGAL		/* source sequence is illegal/malformed */
+} CONVERSION_RESULT;
 typedef enum {
-	strictConversion = 0,
-	lenientConversion
-} ConversionFlags;
+	STRICT_CONVERSION = 0,
+	LENIENT_CONVERSION
+} CONVERSION_FLAGS;
 /* This is for C++ and does no harm in C */
 #ifdef __cplusplus
 extern "C" {
 #endif
-	ConversionResult ConvertUTF8toUTF16(
-		const UTF8** sourceStart, const UTF8* sourceEnd,
-		UTF16** targetStart, UTF16* targetEnd, ConversionFlags flags);
-	ConversionResult ConvertUTF16toUTF8(
-		const UTF16** sourceStart, const UTF16* sourceEnd,
-		UTF8** targetStart, UTF8* targetEnd, ConversionFlags flags);
+	CONVERSION_RESULT ConvertUTF8toUTF16(
+		const UTF8_CHAR** source_start, const UTF8_CHAR* source_end,
+		UTF16_CHAR** target_start, UTF16_CHAR* target_end, CONVERSION_FLAGS flags);
+	CONVERSION_RESULT ConvertUTF16toUTF8(
+		const UTF16_CHAR** source_start, const UTF16_CHAR* source_end,
+		UTF8_CHAR** target_start, UTF8_CHAR* target_end, CONVERSION_FLAGS flags);
 
-	ConversionResult ConvertUTF8toUTF32(
-		const UTF8** sourceStart, const UTF8* sourceEnd,
-		UTF32** targetStart, UTF32* targetEnd, ConversionFlags flags);
-	ConversionResult ConvertUTF32toUTF8(
-		const UTF32** sourceStart, const UTF32* sourceEnd,
-		UTF8** targetStart, UTF8* targetEnd, ConversionFlags flags);
+	CONVERSION_RESULT ConvertUTF8toUTF32(
+		const UTF8_CHAR** source_start, const UTF8_CHAR* source_end,
+		UTF32_CHAR** target_start, UTF32_CHAR* target_end, CONVERSION_FLAGS flags);
+	CONVERSION_RESULT ConvertUTF32toUTF8(
+		const UTF32_CHAR** source_start, const UTF32_CHAR* source_end,
+		UTF8_CHAR** target_start, UTF8_CHAR* target_end, CONVERSION_FLAGS flags);
 
-	ConversionResult ConvertUTF16toUTF32(
-		const UTF16** sourceStart, const UTF16* sourceEnd,
-		UTF32** targetStart, UTF32* targetEnd, ConversionFlags flags);
-	ConversionResult ConvertUTF32toUTF16(
-		const UTF32** sourceStart, const UTF32* sourceEnd,
-		UTF16** targetStart, UTF16* targetEnd, ConversionFlags flags);
-	Boolean isLegalUTF8Sequence(const UTF8 *source, const UTF8 *sourceEnd);
+	CONVERSION_RESULT ConvertUTF16toUTF32(
+		const UTF16_CHAR** source_start, const UTF16_CHAR* source_end,
+		UTF32_CHAR** target_start, UTF32_CHAR* target_end, CONVERSION_FLAGS flags);
+	CONVERSION_RESULT ConvertUTF32toUTF16(
+		const UTF32_CHAR** source_start, const UTF32_CHAR* source_end,
+		UTF16_CHAR** target_start, UTF16_CHAR* target_end, CONVERSION_FLAGS flags);
+	BOOL_INT isLegalUTF8Sequence(const UTF8_CHAR *source, const UTF8_CHAR *source_end);
 
-	Boolean isLegalUTF8(const UTF8 *source, int length);
+	BOOL_INT isLegalUTF8(const UTF8_CHAR *source, int length);
 #ifdef __cplusplus
 }
 #endif
 
-#endif // !__CONVERT_UTF_C__
+#endif // !__CONVERT_UTF_CPP__

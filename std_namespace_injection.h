@@ -6,12 +6,12 @@
 #include "pystring_function_template.h"
 #include "pystring_utf32_function.h"
 #include "pystring_utf32_function_template.h"
-
+/*
 #include "py_string_public_def.h"
 #include "base_string_template.h"
-#include "ConvertUTF.h"
+#include "convert_utf.h"
 #include "data_conv.h"
-
+*/
 // std::hash 的自定义特化能注入 namespace std
 namespace std
 {
