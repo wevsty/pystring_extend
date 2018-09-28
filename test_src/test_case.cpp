@@ -270,8 +270,8 @@ bool test_pystring()
 	check_equal(pystring_function::format("{} + {} = {}", std::vector<std::string>{"1", "2", "3"}), "1 + 2 = 3");
 	check_equal(pystring_function::format("{2} + {1} = {0}", std::vector<std::string>{"5", "2", "3"}), "3 + 2 = 5");
 	//between_start_and_end_string 并非python函数
-	check_equal(pystring_function::between_start_and_end_string("test@example.com", "@"), "example.com");
-	check_equal(pystring_function::between_start_and_end_string("From: test <test@example.com>", "<", ">"), "test@example.com");
+	check_equal(pystring_function::get_middle_of("test@example.com", "@"), "example.com");
+	check_equal(pystring_function::get_middle_of("From: test <test@example.com>", "<", ">"), "test@example.com");
 	return true;
 }
 
@@ -548,8 +548,8 @@ bool test_pystring_utf32()
 	check_equal(pystring_utf32_function::format(U"{} + {} = {}", std::vector<std::u32string>{U"1", U"2", U"3"}), U"1 + 2 = 3");
 	check_equal(pystring_utf32_function::format(U"{2} + {1} = {0}", std::vector<std::u32string>{U"5", U"2", U"3"}), U"3 + 2 = 5");
 	//between_start_and_end_string 并非python函数
-	check_equal(pystring_utf32_function::between_start_and_end_string(U"test@example.com", U"@"), U"example.com");
-	check_equal(pystring_utf32_function::between_start_and_end_string(U"From: test <test@example.com>", U"<", U">"), U"test@example.com");
+	check_equal(pystring_utf32_function::get_middle_of(U"test@example.com", U"@"), U"example.com");
+	check_equal(pystring_utf32_function::get_middle_of(U"From: test <test@example.com>", U"<", U">"), U"test@example.com");
 
 	return true;
 }
@@ -582,10 +582,7 @@ int main()
 	base_test += U"add";
 	base_test = base_test + std::u32string(U"add");
 	base_test = std::u32string(U"add") + base_test;
-	if (base_test == U"1")
-	{
 
-	}
 	test_pystring();
 	test_pystring_utf32();
 	test_utfpystring_class();

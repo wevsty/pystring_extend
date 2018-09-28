@@ -218,7 +218,7 @@ bool get_middle_of_pos(const std::u32string &str_data,
 //取两个字符串之间的字符串
 std::u32string get_middle_of(const std::u32string &str_data,
                              const std::u32string &str_start,
-                             const std::u32string &str_end);
+                             const std::u32string &str_end = U"");
 
                              //删除字符串中两个字符串中间的字符串
 std::u32string delete_middle_of(const std::u32string& str_input_text,

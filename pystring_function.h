@@ -219,7 +219,7 @@ bool get_middle_of_pos(const std::string &str_data,
 //取字符串中两个字符串之间的字符串
 std::string get_middle_of(const std::string &str_data,
                           const std::string &str_start,
-                          const std::string &str_end);
+                          const std::string &str_end = "");
 //删除字符串中两个字符串中间的字符串
 std::string delete_middle_of(const std::string& str_input_text,
                              const std::string& str_multi_line_note_start_flag,
