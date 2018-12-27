@@ -9,16 +9,15 @@
 
 namespace convert_type
 {
-	//template <typename STRING_TYPE>
-	//long long to_long64(const STRING_TYPE str_input);
+	//typedef long long int_max_t;
 	template <typename STRING_TYPE>
-	long long to_long64(const STRING_TYPE str_input)
+	long long to_int_type(const STRING_TYPE str_input)
 	{
 		bool b_minus = false;
-		long long l64_ret = 0;
+		long long n_ret = 0;
 		if (str_input.empty() == true)
 		{
-			return l64_ret;
+			return n_ret;
 		}
 		size_t n_input = str_input.size();
 		size_t i = 0;
@@ -36,27 +35,26 @@ namespace convert_type
 			}
 			else
 			{
-				l64_ret = ((l64_ret * 10) + n_num);
+				n_ret = ((n_ret * 10) + n_num);
 			}
 		}
 		if (b_minus == true)
 		{
-			return -l64_ret;
+			return -n_ret;
 		}
-		return l64_ret;
+		return n_ret;
 	}
 
 	//template<>
-	long long to_long64(const char *str_input);
+	long long to_int_type(const char *str_input);
 	//template <>
-	long long to_long64(const char16_t *str_input);
+	long long to_int_type(const char16_t *str_input);
 	//template <>
-	long long to_long64(const char32_t *str_input);
+	long long to_int_type(const char32_t *str_input);
 
-	//template <typename STRING_TYPE>
-	//long double to_long_double(STRING_TYPE str_input);
+
 	template <typename STRING_TYPE>
-	long double to_long_double(STRING_TYPE str_input)
+	long double to_float_type(const STRING_TYPE str_input)
 	{
 		bool b_minus = false;
 		bool b_point = false;
@@ -111,20 +109,52 @@ namespace convert_type
 	}
 
 	//template <>
-	long double to_long_double(const char *str_input);
+	long double to_float_type(const char *str_input);
 	//template <>
-	long double to_long_double(const char16_t *str_input);
+	long double to_float_type(const char16_t *str_input);
 	//template <>
-	long double to_long_double(const char32_t *str_input);
+	long double to_float_type(const char32_t *str_input);
 
 	// long 64 to string
-	std::string long64_to_string(long long l64_input);
-	std::u16string long64_to_u16string(long long l64_input);
-	std::u32string long64_to_u32string(long long l64_input);
+	std::string int_to_string(long long l64_input);
+	std::u16string int_to_u16string(long long l64_input);
+	std::u32string int_to_u32string(long long l64_input);
+
+	inline void int_to_string(std::string& str_output,long long l64_input)
+	{
+        str_output=int_to_string(l64_input);
+	}
+
+    inline void int_to_string(std::u16string& str_output,long long l64_input)
+	{
+        str_output=int_to_u16string(l64_input);
+	}
+
+    inline void int_to_string(std::u32string& str_output,long long l64_input)
+	{
+        str_output=int_to_u32string(l64_input);
+	}
+
+
 	//long double to string
-	std::string long_double_to_string(long double ld64_input, int n_decimal_digits = 2);
-	std::u16string long_double_to_u16string(long double ld64_input, int n_decimal_digits = 2);
-	std::u32string long_double_to_u32string(long double ld64_input, int n_decimal_digits = 2);
+	std::string float_to_string(long double ld64_input, int n_decimal_digits = 2);
+	std::u16string float_to_u16string(long double ld64_input, int n_decimal_digits = 2);
+	std::u32string float_to_u32string(long double ld64_input, int n_decimal_digits = 2);
+
+	inline void float_to_string(std::string& str_output,long double ld64_input, int n_decimal_digits = 2)
+	{
+        str_output = float_to_string(ld64_input,n_decimal_digits);
+	}
+
+    inline void float_to_string(std::u16string& str_output,long double ld64_input, int n_decimal_digits = 2)
+	{
+        str_output = float_to_u16string(ld64_input,n_decimal_digits);
+	}
+
+    inline void float_to_string(std::u32string& str_output,long double ld64_input, int n_decimal_digits = 2)
+	{
+        str_output = float_to_u32string(ld64_input,n_decimal_digits);
+	}
 
 	template <typename OUTPUT_TYPE, typename INPUT_TYPE>
 	std::vector<OUTPUT_TYPE> convert_vector_type(std::vector<INPUT_TYPE> vec_input)

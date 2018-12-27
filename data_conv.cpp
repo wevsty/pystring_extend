@@ -1,144 +1,50 @@
 ﻿#include "data_conv.h"
-#include "convert_utf.h"
+#include "UnicodeConv.h"
 
 namespace convert_type
 {
-	/*
-	template <typename STRING_TYPE>
-	long long to_long64(const STRING_TYPE str_input)
-	{
-	bool b_minus = false;
-	long long l64_ret = 0;
-	if (str_input.empty() == true)
-	{
-	return l64_ret;
-	}
-	size_t n_input = str_input.size();
-	size_t i = 0;
-	if (str_input[0] == '-')
-	{
-	i = 1;
-	b_minus = true;
-	}
-	for (; i < n_input; i++)
-	{
-	int n_num = str_input[i] - '0';
-	if (n_num > 9 || n_num < 0)
-	{
-	break;
-	}
-	else
-	{
-	l64_ret = ((l64_ret * 10) + n_num);
-	}
-	}
-	if (b_minus == true)
-	{
-	return -l64_ret;
-	}
-	return l64_ret;
-	}
-	*/
 
 	//template<>
-	long long to_long64(const char *str_input)
+	long long to_int_type(const char *str_input)
 	{
-		return to_long64(std::string(str_input));
+		return to_int_type(std::string(str_input));
 	}
 
 	//template <>
-	long long to_long64(const char16_t *str_input)
+	long long to_int_type(const char16_t *str_input)
 	{
-		return to_long64(std::u16string(str_input));
+		return to_int_type(std::u16string(str_input));
 	}
 
 	//template <>
-	long long to_long64(const char32_t *str_input)
+	long long to_int_type(const char32_t *str_input)
 	{
-		return to_long64(std::u32string(str_input));
-	}
-
-
-	/*
-	template <typename STRING_TYPE>
-	long double to_long_double(STRING_TYPE str_input)
-	{
-	bool b_minus = false;
-	bool b_point = false;
-	long double ld_ret = 0.0;
-	long double ld_temp = 10;
-	if (str_input.empty() == true)
-	{
-	return ld_ret;
-	}
-	size_t n_input = str_input.size();
-	size_t i = 0;
-	if (str_input[0] == '-')
-	{
-	i = 1;
-	b_minus = true;
-	}
-	for (; i < n_input; i++)
-	{
-	int n_ch = str_input[i];
-	if (n_ch == '.')
-	{
-	if (b_point == true)
-	{
-	break;
-	}
-	b_point = true;
-	continue;
-	}
-	int n_num = n_ch - '0';
-	if (n_num > 9 || n_num < 0)
-	{
-	break;
-	}
-	else
-	{
-	if (b_point == true)
-	{
-	ld_ret += n_num / ld_temp;
-	ld_temp *= 10;
-	}
-	else
-	{
-	ld_ret = ((ld_ret * 10) + n_num);
-	}
-	}
-	}
-	if (b_minus == true)
-	{
-	return -ld_ret;
-	}
-	return ld_ret;
-	}
-	*/
-
-	//template <>
-	long double to_long_double(const char *str_input)
-	{
-		return to_long_double(std::string(str_input));
+		return to_int_type(std::u32string(str_input));
 	}
 
 	//template <>
-	long double to_long_double(const char16_t *str_input)
+	long double to_float_type(const char *str_input)
 	{
-		return to_long_double(std::u16string(str_input));
+		return to_float_type(std::string(str_input));
 	}
 
 	//template <>
-	long double to_long_double(const char32_t *str_input)
+	long double to_float_type(const char16_t *str_input)
 	{
-		return to_long_double(std::u32string(str_input));
+		return to_float_type(std::u16string(str_input));
 	}
 
-	std::string long64_to_string(long long l64_input)
+	//template <>
+	long double to_float_type(const char32_t *str_input)
+	{
+		return to_float_type(std::u32string(str_input));
+	}
+
+	std::string int_to_string(long long l64_input)
 	{
 		long long l64_temp = l64_input;
 		std::string str_ret;
-		static char num_tables[] = "0123456789";
+		constexpr static const char num_tables[] = "0123456789";
 		if (l64_temp == 0)
 		{
 			return "0";
@@ -168,11 +74,11 @@ namespace convert_type
 		return str_ret;
 	}
 
-	std::u16string long64_to_u16string(long long l64_input)
+	std::u16string int_to_u16string(long long l64_input)
 	{
 		long long l64_temp = l64_input;
 		std::u16string str_ret;
-		static char16_t num_tables[] = u"0123456789";
+		constexpr static const char16_t num_tables[] = u"0123456789";
 		if (l64_temp == 0)
 		{
 			return u"0";
@@ -202,11 +108,11 @@ namespace convert_type
 		return str_ret;
 	}
 
-	std::u32string long64_to_u32string(long long l64_input)
+	std::u32string int_to_u32string(long long l64_input)
 	{
 		long long l64_temp = l64_input;
 		std::u32string str_ret;
-		static char32_t num_tables[] = U"0123456789";
+		constexpr static const char32_t num_tables[] = U"0123456789";
 		if (l64_temp == 0)
 		{
 			return U"0";
@@ -236,10 +142,10 @@ namespace convert_type
 		return str_ret;
 	}
 
-	std::string long_double_to_string(long double ld64_input, int n_decimal_digits)
+	std::string float_to_string(long double ld64_input, int n_decimal_digits)
 	{
 		std::string str_ret;
-		static char num_tables[] = "0123456789";
+		constexpr static const  char num_tables[] = "0123456789";
 		//bool b_minus = false;
 		if (ld64_input == 0)
 		{
@@ -284,7 +190,7 @@ namespace convert_type
 		return str_ret;
 	}
 
-	std::u16string long_double_to_u16string(long double ld64_input,
+	std::u16string float_to_u16string(long double ld64_input,
 		int n_decimal_digits)
 	{
 		std::u16string str_ret;
@@ -333,7 +239,7 @@ namespace convert_type
 		return str_ret;
 	}
 
-	std::u32string long_double_to_u32string(long double ld64_input,
+	std::u32string float_to_u32string(long double ld64_input,
 		int n_decimal_digits)
 	{
 		std::u32string str_ret;
@@ -393,152 +299,32 @@ namespace uft_conv
 
 	bool utf8_to_utf32(const std::string &str_input, std::u32string &str_output)
 	{
-		str_output.clear();
-		//n_buffer_len为最长元素个数
-		size_t n_buffer_len = str_input.size() + 1;
-		size_t n_buffer_safe_len = n_buffer_len - 1;
-		size_t n_buffer_size = n_buffer_len * sizeof(UTF32_CHAR);
-		UTF32_CHAR *utf_buffer = new UTF32_CHAR[n_buffer_len];
-		UTF32_CHAR *utf_buffer_bak = utf_buffer;
-		UTF32_CHAR *utf_buffer_end = utf_buffer + n_buffer_safe_len;
-		memset((void *)utf_buffer, 0, n_buffer_size);
-		const UTF8_CHAR *u8_start = (const UTF8_CHAR *)str_input.c_str();
-		const UTF8_CHAR *u8_end = u8_start + str_input.size();
-		bool bret = false;
-		CONVERSION_RESULT conv_ret = ConvertUTF8toUTF32(&u8_start, u8_end, &utf_buffer,
-			utf_buffer_end, STRICT_CONVERSION);
-		if (conv_ret == CONVERSION_OK)
-		{
-			bret = true;
-			str_output.append((char32_t *)utf_buffer_bak);
-		}
-		delete[] utf_buffer_bak;
-		return bret;
+		return ConvU8ToU32(str_input, str_output);
 	}
 
 	bool utf32_to_utf8(const std::u32string &str_input, std::string &str_output)
 	{
-		str_output.clear();
-		//一个UFT32字符最大可变成6个字节的UTF8_CHAR
-		size_t n_buffer_len = str_input.size() * 6 + 1;
-		size_t n_buffer_safe_len = n_buffer_len - 1;
-		size_t n_buffer_size = n_buffer_len * sizeof(UTF8_CHAR);
-		UTF8_CHAR *utf_buffer = new UTF8_CHAR[n_buffer_len];
-		UTF8_CHAR *utf_buffer_bak = utf_buffer;
-		UTF8_CHAR *utf_buffer_end = utf_buffer + n_buffer_safe_len;
-		memset((void *)utf_buffer, 0, n_buffer_size);
-		const UTF32_CHAR *u32_start = (const UTF32_CHAR *)str_input.c_str();
-		const UTF32_CHAR *u32_end = u32_start + str_input.size();
-		bool bret = false;
-		CONVERSION_RESULT conv_ret = ConvertUTF32toUTF8(&u32_start, u32_end, &utf_buffer,
-			utf_buffer_end, STRICT_CONVERSION);
-		if (conv_ret == CONVERSION_OK)
-		{
-			bret = true;
-			str_output.append((char *)utf_buffer_bak);
-		}
-		delete[] utf_buffer_bak;
-		return bret;
+		return ConvU32ToU8(str_input, str_output);
 	}
 
 	bool utf16_to_utf32(const std::u16string &str_input, std::u32string &str_output)
 	{
-		str_output.clear();
-		//UTF16_CHAR存放一个字最多需要4个字节
-		size_t n_buffer_len = str_input.size() + 1;
-		size_t n_buffer_safe_len = n_buffer_len - 1;
-		size_t n_buffer_size = n_buffer_len * sizeof(UTF32_CHAR);
-		UTF32_CHAR *utf_buffer = new UTF32_CHAR[n_buffer_len];
-		UTF32_CHAR *utf_buffer_bak = utf_buffer;
-		UTF32_CHAR *utf_buffer_end = utf_buffer + n_buffer_safe_len;
-		memset((void *)utf_buffer, 0, n_buffer_size);
-		const UTF16_CHAR *u16_start = (const UTF16_CHAR *)str_input.c_str();
-		const UTF16_CHAR *u16_end = u16_start + str_input.size();
-		bool bret = false;
-		CONVERSION_RESULT conv_ret = ConvertUTF16toUTF32(&u16_start, u16_end,
-			&utf_buffer, utf_buffer_end, STRICT_CONVERSION);
-		if (conv_ret == CONVERSION_OK)
-		{
-			bret = true;
-			str_output.append((char32_t *)utf_buffer_bak);
-		}
-		delete[] utf_buffer_bak;
-		return bret;
+		return ConvU16ToU32(str_input, str_output);
 	}
 
 	bool utf32_to_utf16(const std::u32string &str_input, std::u16string &str_output)
 	{
-		str_output.clear();
-		//UTF16_CHAR存放一个字最多需要4个字节
-		size_t n_buffer_len = str_input.size() * 2 + 1;
-		size_t n_buffer_safe_len = n_buffer_len - 1;
-		size_t n_buffer_size = n_buffer_len * sizeof(UTF16_CHAR);
-		UTF16_CHAR *utf_buffer = new UTF16_CHAR[n_buffer_len];
-		UTF16_CHAR *utf_buffer_bak = utf_buffer;
-		UTF16_CHAR *utf_buffer_end = utf_buffer + n_buffer_safe_len;
-		memset((void *)utf_buffer, 0, n_buffer_size);
-		const UTF32_CHAR *u32_start = (const UTF32_CHAR *)str_input.c_str();
-		const UTF32_CHAR *u32_end = u32_start + str_input.size();
-		bool bret = false;
-		CONVERSION_RESULT conv_ret = ConvertUTF32toUTF16(&u32_start, u32_end,
-			&utf_buffer, utf_buffer_end, STRICT_CONVERSION);
-		if (conv_ret == CONVERSION_OK)
-		{
-			bret = true;
-			str_output.append((char16_t *)utf_buffer_bak);
-		}
-		delete[] utf_buffer_bak;
-		return bret;
+		return ConvU32ToU16(str_input, str_output);
 	}
 
 	bool utf8_to_utf16(const std::string &str_input, std::u16string &str_output)
 	{
-		str_output.clear();
-		//n_buffer_len为最长元素个数
-		size_t n_buffer_len = str_input.size() + 1;
-		size_t n_buffer_safe_len = n_buffer_len - 1;
-		size_t n_buffer_size = n_buffer_len * sizeof(UTF16_CHAR);
-		UTF16_CHAR *utf_buffer = new UTF16_CHAR[n_buffer_len];
-		UTF16_CHAR *utf_buffer_bak = utf_buffer;
-		UTF16_CHAR *utf_buffer_end = utf_buffer + n_buffer_safe_len;
-		memset((void *)utf_buffer, 0, n_buffer_size);
-		const UTF8_CHAR *u8_start = (const UTF8_CHAR *)str_input.c_str();
-		const UTF8_CHAR *u8_end = u8_start + str_input.size();
-		bool bret = false;
-		CONVERSION_RESULT conv_ret = ConvertUTF8toUTF16(&u8_start, u8_end, &utf_buffer,
-			utf_buffer_end, STRICT_CONVERSION);
-		if (conv_ret == CONVERSION_OK)
-		{
-			bret = true;
-			str_output.append((char16_t *)utf_buffer_bak);
-		}
-		delete[] utf_buffer_bak;
-		return bret;
+		return ConvU8ToU16(str_input, str_output);
 	}
 
 	bool utf16_to_utf8(const std::u16string &str_input, std::string &str_output)
 	{
-		str_output.clear();
-		//2个UFT16字符最大可变成6个字节的UTF8_CHAR
-		size_t n_buffer_len = str_input.size() * 6 + 1;
-		size_t n_buffer_safe_len = n_buffer_len - 1;
-		size_t n_buffer_size = n_buffer_len * sizeof(UTF8_CHAR);
-		UTF8_CHAR *utf_buffer = new UTF8_CHAR[n_buffer_len];
-		UTF8_CHAR *utf_buffer_bak = utf_buffer;
-		UTF8_CHAR *utf_buffer_end = utf_buffer + n_buffer_safe_len;
-		memset((void *)utf_buffer, 0, n_buffer_size);
-		const UTF16_CHAR *u16_start = (const UTF16_CHAR *)str_input.c_str();
-		const UTF16_CHAR *u16_end = u16_start + str_input.size();
-		bool bret = false;
-		CONVERSION_RESULT conv_ret = ConvertUTF16toUTF8(&u16_start, u16_end, &utf_buffer,
-			utf_buffer_end, STRICT_CONVERSION);
-		if (conv_ret == CONVERSION_OK)
-		{
-			bret = true;
-			str_output.append((char *)utf_buffer_bak);
-		}
-		delete[] utf_buffer_bak;
-		return bret;
+		return ConvU16ToU8(str_input, str_output);
 	}
 
 
@@ -546,24 +332,14 @@ namespace uft_conv
 	std::wstring u16string_to_wstring(const std::u16string &str_input)
 	{
 		std::wstring wstr_ret;
-		std::u16string::size_type n_input = str_input.size();
-		wstr_ret.resize(n_input);
-		for (std::u16string::size_type i = 0; i < n_input; i++)
-		{
-			wstr_ret[i] = str_input[i];
-		}
+		wstr_ret.assign(str_input.begin(), str_input.end());
 		return wstr_ret;
 	}
 
 	std::u16string wstring_to_u16string(const std::wstring &str_input)
 	{
 		std::u16string u16str_ret;
-		std::u16string::size_type n_input = str_input.size();
-		u16str_ret.resize(n_input);
-		for (std::u16string::size_type i = 0; i < n_input; i++)
-		{
-			u16str_ret[i] = str_input[i];
-		}
+		u16str_ret.assign(str_input.begin(), str_input.end());
 		return u16str_ret;
 	}
 
@@ -600,24 +376,14 @@ namespace uft_conv
 	std::wstring u32string_to_wstring(const std::u32string &str_input)
 	{
 		std::wstring wstr_ret;
-		std::u32string::size_type n_input = str_input.size();
-		wstr_ret.resize(n_input);
-		for (std::u32string::size_type i = 0; i < n_input; i++)
-		{
-			wstr_ret[i] = str_input[i];
-		}
+		wstr_ret.assign(str_input.begin(), str_input.end());
 		return wstr_ret;
 	}
 
 	std::u32string wstring_to_u32string(const std::wstring &str_input)
 	{
 		std::u32string u32str_ret;
-		std::u32string::size_type n_input = str_input.size();
-		u32str_ret.resize(n_input);
-		for (std::u32string::size_type i = 0; i < n_input; i++)
-		{
-			u32str_ret[i] = str_input[i];
-		}
+		u32str_ret.assign(str_input.begin(), str_input.end());
 		return u32str_ret;
 	}
 
@@ -649,7 +415,6 @@ namespace uft_conv
 		return true;
 	}
 	//#endif __GNUC__
-	//#elif __MINGW32__
 
 #endif // !_MSC_VER
 

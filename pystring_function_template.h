@@ -9,6 +9,7 @@
 #include <vector>
 #include <string>
 
+
 namespace pystring_function
 {
 	//转换类型
@@ -178,8 +179,8 @@ namespace pystring_function
 		}
 		long_max_t i;
 		long_max_t n_start_pos;
-		long_max_t n_strlen = safe_to_sigend_cast(str.size());
-		long_max_t n_sep_len = safe_to_sigend_cast(sep.size());
+		long_max_t n_strlen = safe_to_signed_cast(str.size());
+		long_max_t n_sep_len = safe_to_signed_cast(sep.size());
 		i = n_start_pos = n_strlen;
 		while (i >= n_sep_len)
 		{
