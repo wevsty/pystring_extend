@@ -5,7 +5,7 @@
 #define __PYTHON_STRING_FUNCTION_TEMPLATE_H__
 
 #include "pystring_function.h"
-#include "py_string_public_def.h"
+#include "pystring_define.h"
 #include <vector>
 #include <string>
 

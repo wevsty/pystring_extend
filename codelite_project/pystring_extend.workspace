@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="pystring_extend" Database="" Version="10.0.0">
+  <Project Name="pystring_extend" Path="pystring_extend/pystring_extend.project" Active="No"/>
+  <Project Name="pystring_extend_test_case" Path="pystring_extend_test_case/pystring_extend_test_case.project" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Environment/>
+      <Project Name="pystring_extend" ConfigName="Debug"/>
+      <Project Name="pystring_extend_test_case" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release" Selected="yes">
+      <Environment/>
+      <Project Name="pystring_extend" ConfigName="Release"/>
+      <Project Name="pystring_extend_test_case" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>

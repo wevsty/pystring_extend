@@ -2,10 +2,8 @@
 #define PYTHON_STRING_STD_NAMESPACE_INJECTION_H_INCLUDED
 
 #include "pystring_class.h"
-#include "pystring_function.h"
+#include "pystring_interface_function.h"
 #include "pystring_function_template.h"
-#include "pystring_utf32_function.h"
-#include "pystring_utf32_function_template.h"
 /*
 #include "py_string_public_def.h"
 #include "base_string_template.h"
@@ -22,7 +20,7 @@ namespace std
         typedef std::size_t result_type;
         result_type operator()(argument_type const& s) const
         {
-            result_type const h1 ( std::hash<std::string>{}(s.to_std_string()) );
+            result_type const h1 ( std::hash<std::string>{}(s.to_basic_type()) );
             return h1;
         }
     };

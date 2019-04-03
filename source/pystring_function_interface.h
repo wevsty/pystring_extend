@@ -4,7 +4,7 @@
 #ifndef __PYTHON_GEN_STRING_FUNCTION_OVERLOAD_H__
 #define __PYTHON_GEN_STRING_FUNCTION_OVERLOAD_H__
 
-#include "pystring_public_def.h"
+#include "pystring_define.h"
 #include "pystring_algorithm_template.h"
 
 namespace pystring_function
