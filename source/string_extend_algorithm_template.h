@@ -21,14 +21,14 @@
 
 #include "compiler_macros.h"
 #include "pystring_define.h"
-#include "string"
+#include <string>
 namespace string_extend
 {
     //将所有replace_old替换为replace_new
     //max_replace_count为最大替换次数
     template <typename T_STRING>
     void replace_direct(
-        const T_STRING &replace_source,
+        T_STRING &replace_source,
         const T_STRING &replace_old,
         const T_STRING &replace_new,
         size_t max_replace_count = MAX_SIZE_T
